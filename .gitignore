@@ -1,2 +1,7 @@
 .idea
 sw2/secrets.py
+db.sqlite3
+*/migrations
+__pycache__
+*/__pycache__
+**/__pycache__
