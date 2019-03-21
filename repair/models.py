@@ -10,3 +10,5 @@ class order(models.Model):
     current_date=models.DateField()
     estimate_date=models.DateField()
 
+class omar(models.Model):
+    phone = models.TextField()
