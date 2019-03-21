@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import order,option,item
+from .models import Repair_order,Repair_item,Repair_option
 # Register your models here.
-admin.site.register(order)
-admin.site.register(option)
-admin.site.register(item)
+admin.site.register(Repair_order)
+admin.site.register(Repair_item)
+admin.site.register(Repair_option)
