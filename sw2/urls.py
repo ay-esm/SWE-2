@@ -20,7 +20,7 @@ from pages.views import homeView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('pages.urls')),
+    path('home/',include('pages.urls')),
     #path('',homeView),
-    path('hgjk', include('repair.urls'))
+    #path('hgjk', include('repair.urls'))
 ]
