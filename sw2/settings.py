@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     #MY APPs
     'repair',
     'pages',
+    'customer',
 ]
 
 MIDDLEWARE = [
