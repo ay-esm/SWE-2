@@ -10,7 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
         <!-- Document title -->
-        <title>Dashboard | AppUI</title>
+        <title>{% block title %} Dashboard | AppUI{% endblock %}</title>
 
         <meta name="description" content="AppUI - Admin Dashboard Template & UI Framework" />
         <meta name="author" content="rustheme" />
@@ -48,7 +48,7 @@
                 {% include 'header.html' %}
                 <!-- End header -->
 
-                <main class="app-layout-content">
+                <main class="app-layout-content" id="content">
 
                     <!-- Page Content -->
                     {% block content %}
@@ -94,6 +94,8 @@
                 // Init page helpers (Slick Slider plugin)
                 App.initHelpers('slick');
             });
+            {% block js %}
+            {% endblock %}
         </script>
 
     </body>

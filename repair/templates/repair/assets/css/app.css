@@ -481,7 +481,7 @@ rtl-edits: Ahmed2m
 .form-material > label {
 	position: absolute;
 	top: 6px;
-	left: 0;
+	right: 0;
 	font-size: 85%;
 	-webkit-transform: translate(0, -24px);
 	transform: translate(0, -24px);
