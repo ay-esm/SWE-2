@@ -1,14 +1,13 @@
 from django.db import models
 from customer.models import Customer
+from django.utils import timezone
 # Create your models here.
 
 class Repair_order(models.Model):
-    phone=models.CharField(max_length=50)
-    name=models.CharField(max_length=50)
     payed=models.DecimalField(decimal_places=2,max_digits=1000)
     reminder=models.DecimalField(decimal_places=2,max_digits=1000)
     total_price=models.DecimalField(decimal_places=2,max_digits=1000)
-    current_date=models.DateField()
+    current_date=models.DateField(default=timezone.now)
     estimate_date=models.DateField()
     customer_id = models.ForeignKey('customer.Customer',on_delete=models.CASCADE,default=1)
     state_to_office = models.BooleanField(default=False)
