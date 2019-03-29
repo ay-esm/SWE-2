@@ -1,12 +1,36 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
+<h2 class="fw-b h1 ta-r m-t-lg m-b-lg m-r-lg">تسجيل موظف </h2>
+
 <div style="text-align:right; float:right; margin:30px">
-    <form method="POST" action="http://127.0.0.1:8000/home/">
+    <form method="POST" action="{% url 'register' %}">
         {% csrf_token %}
-        {{ u_form|crispy }}
-        {{ p_form|crispy }}
-        <input type="submit" value="Save"/>
+
+
+        {%for field in u_form%}
+            <div class="form-group">
+                <div class="col-xs-12 ta-r">
+                        <label class="ta-r">{{field.label}}</label>
+                        {{ field }}
+                </div>
+            </div>
+        {%endfor%}
+
+        {%for field in p_form%}
+            <div class="form-group">
+                <div class="col-xs-12 ta-r">
+                        <label class="ta-r">{{field.label}}</label>
+                        {{ field }}
+                </div>
+            </div>
+        {%endfor%}
+
+        <div class="form-group m-b-0">
+        <div class="col-xs-12">
+            <button class="btn btn-app" type="submit">تسجيل</button>
+        </div>
+    </div>
     </form>
 </div>
 {% endblock %}

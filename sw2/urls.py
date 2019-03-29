@@ -21,7 +21,7 @@ from profiles.views import register_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('register/', register_view),
+    path('register/', register_view, name="register"),
     path('home/',include('pages.urls')),
     #path('',homeView),
     #path('hgjk', include('repair.urls'))
