@@ -17,9 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from pages.views import homeView
+from profiles.views import register_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('register/', register_view),
     path('home/',include('pages.urls')),
     #path('',homeView),
     #path('hgjk', include('repair.urls'))
