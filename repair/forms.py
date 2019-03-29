@@ -1,5 +1,9 @@
 from .models import *
 from django import forms
 
-class Order_item(forms.Form):
-    pass
+class Repair_Order_From(forms.Form):
+
+    class Meta:
+
+
+        fields=['','','','','',]

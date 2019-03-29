@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div style="text-align:right; float:right; margin:30px">
+    <form method="POST" action="http://127.0.0.1:8000/home/">
+        {% csrf_token %}
+        {{ u_form|crispy }}
+        {{ p_form|crispy }}
+        <input type="submit" value="Save"/>
+    </form>
+</div>
+{% endblock %}
