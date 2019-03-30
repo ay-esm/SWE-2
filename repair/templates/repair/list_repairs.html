@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}جميع الإصلاحات{% endblock %}
+
+{% block content %}
+{#    <form class="form-signin" method="GET" action="{% url 'pages:AddO' %}">#}
+{#        {% csrf_token %}#}
+        <a href="{% url 'listrepairs' %}"><h2 class="fw-b h1 ta-r m-t-lg m-b-lg m-r-lg">اﻹصلاحات </h2></a>
+        <form dir="rtl" method="get" class="m-l-lg m-r-lg ta-r">
+            <label> العميل</label>
+            {{ filter.form.customer_id }}
+            <br>
+            <label>المبلغ كامل : </label>
+            {{ filter.form.total_price }}
+            <label>المدفوع : </label>
+            {{ filter.form.payed }}
+            <br>
+            <br>
+            <label>حالة الاستلام من الورشة : </label>
+            {{ filter.form.state_to_office }}
+            <label>حالة الاستلام من المكتب : </label>
+            {{ filter.form.state_to_office }}
+            <label>حالة التسليم للعميل : </label>
+            {{ filter.form.state_to_customer }}
+            <br>
+            <button class="btn btn-app m-t-lg" type="submit">Search</button>
+        </form>
+        <div class="row text-center">
+            <div class="card m-t-lg">
+
+                <div class="card-block">
+                    <div class="table-responsive">
+                        <table dir="rtl" class=" table table-striped table-borderless table-vcenter text-center ">
+                            <thead style="background-color: #8fdf82;">
+                                <tr>
+                                    <th style="width: 1%;"></th>
+                                    <th class="text-center ">
+                                        العميل<br>
+                                    </th>
+                                    <th class="text-center">
+                                        المبلغ كامل<br>
+                                    </th>
+                                    <th class="text-center">
+                                        المدفوع<br>
+                                    </th>
+                                    <th class="text-center">
+                                        حالة الاستلام من الورشة<br>
+                                    </th>
+                                    <th class="text-center">
+                                         حالة الاستلام من المكتب<br>
+                                    </th>
+                                    <th class="text-center">
+                                         حالة التسليم للعميل<br>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for order in filter.qs %}
+                                    <tr>
+                                        <td><code>  </code></td>
+                                        <td>{{ order.customer_id.name }}</td>
+                                        <td>{{ order.total_price }}</td>
+                                        <td>{{ order.payed }}</td>
+                                        <td>{% if order.state_to_office %}
+                                            <i class="ion-checkmark text-green"></i>
+                                            {% else %}
+                                            <i class="ion-close text-red"></i>
+                                        {% endif %}</td>
+                                        <td>{% if order.state_to_store %}
+                                            <i class="ion-checkmark text-green"></i>
+                                            {% else %}
+                                            <i class="ion-close text-red"></i>
+                                        {% endif %}</td>
+                                        <td>{% if order.state_to_customer %}
+                                            <i class="ion-checkmark text-green"></i>
+                                            {% else %}
+                                            <i class="ion-close text-red"></i>
+                                        {% endif %}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+{#    </form>#}
+{% endblock %}
+
+
+
+{% block js %}
+
+{#$("#new").click(function () {#}
+{#    var str = "test";#}
+{#    console.log(str);#}
+{#    $.ajax({#}
+{#        url: '{% url 'pages:AddC' %}',#}
+{#        data: {},#}
+{#        success: function (data) {#}
+{#            $('#content').html(data);#}
+{#        }#}
+{#    });#}
+{# });#}
+
+{% endblock %}
