@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'pages',
     'customer',
     'profiles',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -61,7 +62,7 @@ ROOT_URLCONF = 'sw2.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'pages/templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'pages/templates'), os.path.join(BASE_DIR, 'repair/templates/repair')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
