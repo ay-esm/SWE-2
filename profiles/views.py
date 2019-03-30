@@ -1,18 +1,22 @@
-from django.shortcuts import render
-from .forms import UserForm,ProfileForm
+from django.shortcuts import render,redirect
+from django.contrib import messages
+from .forms import UserForm
 
 # Create your views here.
 
 def register_view(request):
-    user_form = UserForm(request.POST)
-    profile_form   = ProfileForm(request.POST)
+    form = UserForm(request.POST or None)
 
-    if user_form.is_valid() and profile_form.is_valid():
-        u = user_form.save()
-        p=profile_form.save(commit= False)
-        p.user=u
-        p.save()
 
-    context={'u_form':user_form, 'p_form':profile_form}
+    if form.is_valid():
+        form.save()
+        username= form.cleaned_data.get('username')
+        messages.success(request, f'{username}تم عمل حساب بأسم ')
+        return redirect('register')
+
+    context={'form':form}
 
     return render(request, 'profileforms/register.html', context)
+
+def login_view(request):
+    return render(request, 'profileforms/login.html', {})
