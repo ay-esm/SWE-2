@@ -4,5 +4,5 @@ from repair import views
 
 urlpatterns = [
     path('', views.index),
-    path('new/',)
+    path('list/', views.list_repairs, name='listrepairs')
 ]
