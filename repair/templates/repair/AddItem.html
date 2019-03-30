@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Add Order{% endblock %}
+{% block title %}Add item{% endblock %}
 
 {% block content %}
 {#    <form class="form-signin" method="GET" action="{% url 'pages:AddO' %}">#}
@@ -9,9 +9,9 @@
         <h2 class="fw-b h1 ta-r m-t-lg m-b-lg m-r-lg">طلب جديد </h2>
 {#        {% debug %}#}
         <div class="row text-center">
-            <button class="btn btn-lg btn-app fw-sb col-md-3 col-md-offset-2"  name="new" id="new">عميل جديد</button>
+            <button class="btn btn-lg btn-app fw-sb col-md-3 col-md-offset-2"  name="new" id="new">اضاف قطعة</button>
 
-            <button class="btn btn-lg btn-app fw-sb col-md-3 col-md-offset-2"  name="old" id="old">عميل سابق</button>
+            <button class="btn btn-lg btn-app fw-sb col-md-3 col-md-offset-2"  name="old" id="old">ازالة القطعة</button>
         </div>
 {#    </form>#}
 {% endblock %}

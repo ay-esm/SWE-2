@@ -16,13 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from pages.views import homeView
 from profiles.views import register_view
-
+from repair.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', register_view),
     path('home/',include('pages.urls')),
+    path('repair/',include('repair.urls'))
     #path('',homeView),
     #path('hgjk', include('repair.urls'))
 ]

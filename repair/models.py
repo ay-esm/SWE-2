@@ -14,11 +14,13 @@ class Repair_order(models.Model):
     state_to_store = models.BooleanField(default=False)
     state_to_customer = models.BooleanField(default=False)
 
+
 class Repair_item(models.Model):
     type1=models.CharField(max_length=15)
     type2=models.CharField(max_length=15)
     type3=models.CharField(max_length=15)
     price=models.DecimalField(decimal_places=2,max_digits=1000)
+    summary=models.TextField(null=True)
     repair_order_id = models.ForeignKey('Repair_order', on_delete=models.CASCADE,default=1)
     state_finish= models.BooleanField(default=False)
 

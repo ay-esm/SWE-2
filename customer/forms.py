@@ -18,3 +18,11 @@ class CustomerForm(forms.Form):
                                 'class': 'form-control ta-r',
                                 'placeholder': 'رقم الهاتف',
                             }))
+class CustomerForm2(forms.Form):
+    numeric = RegexValidator(r'^[0-9]*$', 'Only numeric characters are allowed.')
+    phone = forms.CharField(required=True,
+                            validators=[numeric],
+                            widget=forms.TextInput(attrs={
+                                'class': 'form-control ta-r',
+                                'placeholder': 'رقم الهاتف',
+                            }))
