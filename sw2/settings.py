@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'pages',
     'customer',
     'profiles',
+    'django_filters',
+
 ]
 
 MIDDLEWARE = [
@@ -61,7 +63,7 @@ ROOT_URLCONF = 'sw2.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'pages/templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'pages/templates'), os.path.join(BASE_DIR, 'repair/templates/repair')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -126,3 +128,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+#AUTH_USER_MODEL='profiles.EmpUser'
+AUTH_USER_MODEL = "profiles.EmpUser"
+
+LOGIN_REDIRECT_URL='/home/'
+LOGOUT_REDIRECT_URL='login'

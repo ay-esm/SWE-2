@@ -1,13 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from customer.models import Customer
 from customer.forms import CustomerForm
 # Create your views here.
 
 def homeView(request):
-    context={}
+    if not request.user.is_authenticated:
+        return redirect('login')
 
-    return render(request,'base.html',context)
+    else:
+        context={}
 
+        return render(request,'base.html',context)
 # def add_order_view(request):
 #     if request.method == 'POST':
 #         form = CustomerForm(request.POST)
@@ -29,3 +32,4 @@ def homeView(request):
 #     else:
 #         context = {'form': form}
 #     return render(request, 'addCustomer.html', context)
+

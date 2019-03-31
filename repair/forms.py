@@ -2,6 +2,7 @@ from .models import *
 from django import forms
 from .models import *
 from django.core.validators import RegexValidator
+from django.forms import formset_factory
 class Repair_item_From(forms.Form):
     type1_option = [
         ('-', '-'),
@@ -94,10 +95,11 @@ class Repair_item_From(forms.Form):
                                 'class': 'form-control ta-r',
                                 'placeholder': '0',
                             }))
-    summary = forms.Textarea()
+    summary = forms.CharField(widget=forms.Textarea)
     class Meta:
         model = Repair_item
 
-        fields=['type1','type2','type3','price','',]
+        fields=['type1','type2','type3','price','summary',]
 
 
+repair_form_set = formset_factory(Repair_item_From, extra=1)

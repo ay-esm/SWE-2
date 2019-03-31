@@ -7,16 +7,16 @@ class CustomerForm(forms.Form):
     numeric = RegexValidator(r'^[0-9]*$', 'Only numeric characters are allowed.')
 
     name = forms.CharField(required=True,
+                           label="الاسم",
                            widget=forms.TextInput(
                                attrs={
                                    'class': 'form-control ta-r',
-                                   'placeholder': 'الاسم',
                                }))
     phone = forms.CharField(required=True,
                             validators=[numeric],
+                            label="رقم الموبايل",
                             widget=forms.TextInput(attrs={
                                 'class': 'form-control ta-r',
-                                'placeholder': 'رقم الهاتف',
                             }))
 class CustomerForm2(forms.Form):
     numeric = RegexValidator(r'^[0-9]*$', 'Only numeric characters are allowed.')

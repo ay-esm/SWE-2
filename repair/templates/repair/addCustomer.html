@@ -1,35 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
-{#<form class="form-signin" method="GET" action="{% url 'repair:Add' %}">#}
-{#        {% csrf_token %}#}
 <h2 class="fw-b h1 ta-r m-t-lg m-b-lg m-r-lg">عميل جديد </h2>
 {#        {% debug %}#}
-<div class="card col-md-6 vcenter shadow-3 col-md-offset-5">
+<div class="card col-md-4 vcenter shadow-3 col-md-offset-5">
     {% if backToOrder %}
         <form class="form-horizontal m-x-lg m-y-md" action="{% url 'repair:AddO' %}" method="POST">
     {% else %}
         <form class="form-horizontal m-x-lg m-y-md" action="{% url 'repair:AddC' %}" method="POST">
     {% endif %}
     {% csrf_token %}
-    <div class="form-group">
-        <div class="col-xs-12">
-            <div class="form-material floating">
-                {{ form.name }}
-{#                #}
-{#                TODO: Fix the floating label#}
+        {% for field in form %}
+            <div class="form-group">
+                <div class="form-material floating">
+                        <label class="ta-r">{{field.label}}</label>
+                        {{ field }}
+                </div>
             </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-xs-12">
-            <div class="form-material floating">
-                {{ form.phone }}
-{#                <label class="ta-r" style="display: block" for="cphone">رقم الموبايل</label>#}
-{#                TODO: Fix the floating label#}
-            </div>
-        </div>
-    </div>
+        {% endfor %}
 
     <div class="form-group m-b-0">
         <div class="col-xs-12">
@@ -38,5 +25,4 @@
     </div>
     </form>
 </div>
-{#    </form>#}
 {% endblock %}

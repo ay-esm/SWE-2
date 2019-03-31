@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .filters import *
 from customer.forms import CustomerForm,CustomerForm2
 from customer.models import Customer
 from repair.forms import *
@@ -8,22 +9,24 @@ from repair.forms import *
 def add_order_view(request):
     if request.method == 'POST':
         form = CustomerForm2(request.POST)
+        context={}
         if form.is_valid():
             phone = request.POST.get("phone")
-            cu = Customer.objects.filter(phone=phone)
-            # print(cu.get("phone"))
+            #print(phone)
+            cu = Customer.objects.filter(phone=phone).values('name')
+            # print(cu[0]['name'])
             if(cu):
-                form_item = Repair_item_From()
-                context = {'go_to_items':1,'form':form,'form_item':form_item}
-                return render(request, 'repair/addOrder.html', context)
+                name = cu[0]['name']
+                form = CustomerForm(initial={'name':name,'phone':phone})
+
+                context = {'go_to_items':1,'form':form}
+
+                return add_items(request,context)
             else:
                 form_cu = CustomerForm()
                 context={'form':form_cu}
                 return render(request, 'repair/addCustomer.html', context)
-            # new_customer = Customer(name=request.POST['name'], phone=request.POST['phone'])
-            # new_customer.save()
-            # context = {}
-            # return render(request, 'repair/addOrder.html', context)
+
     else:
         form = CustomerForm()
         context = {'go_to_item':0,'form':form}
@@ -32,12 +35,27 @@ def add_order_view(request):
 
 def add_customer_view(request):
     form = CustomerForm()
-
-    if request.is_ajax():
+    if request.method == "POST":
+        new_customer = Customer(name=request.POST['name'], phone=request.POST['phone'])
+        new_customer.save()
         context = {'backToOrder': 'no', 'form': form}
+        return render(request, 'repair/addItem.html', context)
     else:
         context = {'form': form}
     return render(request, 'repair/addCustomer.html', context)
 
-def add_items(request):
+
+def add_items(request,context):
     form = Repair_item_From()
+    if request.method == 'GET':
+        formset = repair_form_set(request.GET or None)
+    context['form_item'] = form
+    return render(request,'repair/AddItem.html',context)
+
+
+def list_repairs(request):
+    order_list = Repair_order.objects.all()
+    order_filter = repair_filter(request.GET, queryset=order_list)
+    context={'filter':order_filter}
+    return render(request, 'repair/list_repairs.html', context)
+

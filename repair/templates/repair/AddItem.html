@@ -1,35 +1,76 @@
 {% extends 'base.html' %}
-{% load static %}
 
-{% block title %}Add item{% endblock %}
+    {% block content %}
+    <h2 class="fw-b h1 ta-r m-t-lg m-b-lg m-r-lg">الطلب</h2>
+    <div class="card col-md-4 vcenter shadow-3 col-md-offset-5">
+         <form class="form-horizontal m-x-lg m-y-md" action="{% url 'repair:AddO' %}" method="POST">
+            <div class="form-group">
+                <div class="col-xs-15 ta-r">
+                    {{ form.name   }}
+                </div>
+            </div>
 
-{% block content %}
-{#    <form class="form-signin" method="GET" action="{% url 'pages:AddO' %}">#}
-{#        {% csrf_token %}#}
-        <h2 class="fw-b h1 ta-r m-t-lg m-b-lg m-r-lg">طلب جديد </h2>
-{#        {% debug %}#}
-        <div class="row text-center">
-            <button class="btn btn-lg btn-app fw-sb col-md-3 col-md-offset-2"  name="new" id="new">اضاف قطعة</button>
+            <div class="form-group">
+                <div class="col-xs-15 ta-r">
+                     {{ form.phone }}
+                </div>
+            </div>
+        </form>
+     </div>
+    <div class="card col-md-8 vcenter shadow-3 col-md-offset-2">
+        <form dir="rtl" class="form-horizontal m-x-lg m-y-md" action="{% url 'repair:AddO' %}" method="POST">
+    {% csrf_token %}
 
-            <button class="btn btn-lg btn-app fw-sb col-md-3 col-md-offset-2"  name="old" id="old">ازالة القطعة</button>
+
+
+            <h3 class="fw-b h3 ta-r m-t-lg m-b-lg m-r-lg">القطعة</h3>
+            <div class="form-group">
+                <div class="col-xs-12 ta-r">
+                    <label class="ta-r m-l-md">البيان</label>
+                     {{ form_item.type1 }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-12 ta-r">
+                    <label class="ta-r m-l-md">الصنف</label>
+                    {{ form_item.type2 }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12 ta-r">
+                    <label class="ta-r m-l-md">النوع</label>
+                     {{ form_item.type3 }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12 ta-r">
+                    <label class="ta-r m-l-md">الملاحظات</label>
+                    {{ form_item.summary }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-12 ta-r">
+                    <label class="ta-r m-l-md">السعر</label>
+                    {{ form_item.price }}
+                </div>
+            </div>
+
+
+
+
+    <div class="form-group m-b-0">
+        <div class="col-xs-12">
+            <button class="btn btn-app" type="submit">اتمام</button>
         </div>
-{#    </form>#}
-{% endblock %}
-
-
-
-{% block js %}
-
-$("#new").click(function () {
-    var str = "test";
-    console.log(str);
-    $.ajax({
-        url: '{% url 'pages:AddC' %}',
-        data: {},
-        success: function (data) {
-            $('#content').html(data);
-        }
-    });
-});
+    </div>
+    </form>
+            <div class="form-group m-b-0">
+        <div class="col-xs-12">
+            <button class="btn btn-app" type="submit">اتمام</button>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
