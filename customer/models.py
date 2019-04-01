@@ -6,7 +6,8 @@ class Customer(models.Model):
     phone = models.CharField(max_length=50)
 
     def __str__(self):
-        return "id :" + str(self.id)+" name :" + self.name+" phone :" +self.phone
+        return self.name
+
     def get_customer_phone(self,phone):
         queryset = ""
         return queryset

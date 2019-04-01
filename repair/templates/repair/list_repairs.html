@@ -45,6 +45,9 @@
                                         المدفوع<br>
                                     </th>
                                     <th class="text-center">
+                                         القطع<br>
+                                    </th>
+                                    <th class="text-center">
                                         حالة الاستلام من الورشة<br>
                                     </th>
                                     <th class="text-center">
@@ -62,6 +65,16 @@
                                         <td>{{ order.customer_id.name }}</td>
                                         <td>{{ order.total_price }}</td>
                                         <td>{{ order.payed }}</td>
+                                        <td>
+{#                                            Loop for the related models inside orders. #}
+{#                                            Why It's named items?  check the repair/models.py line 23 #}
+                                            {% for item in order.items.all %}
+                                                {{ item.type1 }}،
+                                                {{ item.type2 }}،
+                                                {{ item.type3 }}
+                                                <br>
+                                            {% endfor %}
+                                        </td>
                                         <td>{% if order.state_to_office %}
                                             <i class="ion-checkmark text-green"></i>
                                             {% else %}
