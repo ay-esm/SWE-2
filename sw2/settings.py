@@ -132,5 +132,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 #AUTH_USER_MODEL='profiles.EmpUser'
 AUTH_USER_MODEL = "profiles.EmpUser"
 
-LOGIN_REDIRECT_URL='/home/'
+LOGIN_REDIRECT_URL='/repair'
 LOGOUT_REDIRECT_URL='login'
