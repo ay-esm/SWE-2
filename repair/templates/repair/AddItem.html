@@ -1,76 +1,118 @@
 {% extends 'base.html' %}
 
-    {% block content %}
-    <h2 class="fw-b h1 ta-r m-t-lg m-b-lg m-r-lg">الطلب</h2>
-    <div class="card col-md-4 vcenter shadow-3 col-md-offset-5">
-         <form class="form-horizontal m-x-lg m-y-md" action="{% url 'repair:AddO' %}" method="POST">
-            <div class="form-group">
-                <div class="col-xs-15 ta-r">
-                    {{ form.name   }}
-                </div>
+{% block content %}
+<h2 class="fw-b h1 ta-r m-t-lg m-b-lg m-r-lg">الطلب</h2>
+<div class="card col-md-4 vcenter shadow-3 col-md-offset-5">
+    <form class="form-horizontal m-x-lg m-y-md" method="GET">
+
+        <div class="form-group">
+            <div class="col-xs-15 ta-r">
+                {{ form.name   }}
             </div>
-
-            <div class="form-group">
-                <div class="col-xs-15 ta-r">
-                     {{ form.phone }}
-                </div>
-            </div>
-        </form>
-     </div>
-    <div class="card col-md-8 vcenter shadow-3 col-md-offset-2">
-        <form dir="rtl" class="form-horizontal m-x-lg m-y-md" action="{% url 'repair:AddO' %}" method="POST">
-    {% csrf_token %}
-
-
-
-            <h3 class="fw-b h3 ta-r m-t-lg m-b-lg m-r-lg">القطعة</h3>
-            <div class="form-group">
-                <div class="col-xs-12 ta-r">
-                    <label class="ta-r m-l-md">البيان</label>
-                     {{ form_item.type1 }}
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-xs-12 ta-r">
-                    <label class="ta-r m-l-md">الصنف</label>
-                    {{ form_item.type2 }}
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-xs-12 ta-r">
-                    <label class="ta-r m-l-md">النوع</label>
-                     {{ form_item.type3 }}
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-xs-12 ta-r">
-                    <label class="ta-r m-l-md">الملاحظات</label>
-                    {{ form_item.summary }}
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-xs-12 ta-r">
-                    <label class="ta-r m-l-md">السعر</label>
-                    {{ form_item.price }}
-                </div>
-            </div>
-
-
-
-
-    <div class="form-group m-b-0">
-        <div class="col-xs-12">
-            <button class="btn btn-app" type="submit">اتمام</button>
         </div>
-    </div>
+
+        <div class="form-group">
+            <div class="col-xs-15 ta-r">
+                {{ form.phone }}
+            </div>
+        </div>
     </form>
-            <div class="form-group m-b-0">
-        <div class="col-xs-12">
-            <button class="btn btn-app" type="submit">اتمام</button>
+</div>
+<div class="card col-md-8 vcenter shadow-3 col-md-offset-2">
+    <form dir="rtl" class="form-horizontal m-x-lg m-y-md form-item" method="POST">
+        {{ form_item.management_form }}
+        {% csrf_token %}
+        {% for item in formset %}
+        <h3 class="fw-b h3 ta-r m-t-lg m-b-lg m-r-lg">القطعة</h3>
+        <div class="form-group" dir="rtl">
+            <div class="col-xs-5 ta-r">
+                <label class="ta-r m-l-md">البيان</label>
+                {{ item.type1 }}
+            </div>
         </div>
-    </div>
+
+        <div class="form-group" dir="rtl">
+            <div class="col-xs-5 ta-r">
+                <label class="ta-r m-l-md">الصنف</label>
+                {{ item.type2 }}
+            </div>
+        </div>
+        <div class="form-group" dir="rtl">
+            <div class="col-xs-5 ta-r">
+                <label class="ta-r m-l-md">النوع</label>
+                {{ item.type3 }}
+            </div>
+        </div>
+        <div class="form-group" dir="rtl">
+            <div class="col-xs-5 ta-r">
+                <label class="ta-r m-l-md">المطلوب</label>
+                {{ item.option }}
+            </div>
+        </div>
+
+        <div class="form-group" dir="rtl">
+            <div class="col-xs-12 ta-r">
+                <label class="ta-r m-l-md">الملاحظات</label>
+                {{ item.summary }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-12 ta-r">
+                <label class="ta-r m-l-md">السعر</label>
+                {{ item.price }}
+            </div>
+        </div>
+
+        {% endfor %}
+
+        <div class="form-group m-b-0">
+            <div class="col-xs-12">
+                <button class="btn btn-app" type="submit">اتمام</button>
+            </div>
+        </div>
+
+    </form>
+    <!--<form dir="rtl" class="form-horizontal m-x-lg m-y-md"  method="GET">
+              
+        </form>-->
+        <div class="col-xs-12">
+            <button class="btn btn-success add-form-row">+</button>
+        </div>
 </div>
 
+{% endblock %}
+
+{% block js %}
+
+function cloneMore(selector, prefix) {
+    var newElement = $(selector).clone(true);
+    var total = $('#id_' + prefix + '-TOTAL_FORMS').val();
+    newElement.find(':input').each(function() {
+    var type1 = $(this).attr('type1').replace('-' + (total-1) + '-', '-' + total + '-');
+    var type2 = $(this).attr('type2').replace('-' + (total-1) + '-', '-' + total + '-');
+    var type3 = $(this).attr('type3').replace('-' + (total-1) + '-', '-' + total + '-');
+    var option = $(this).attr('option').replace('-' + (total-1) + '-', '-' + total + '-');
+    var price = $(this).attr('price').replace('-' + (total-1) + '-', '-' + total + '-');
+    var summary = $(this).attr('summary').replace('-' + (total-1) + '-', '-' + total + '-');
+    var id = 'id_' + name;
+    $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+    });
+    total++;
+    $('#id_' + prefix + '-TOTAL_FORMS').val(total);
+    console.log(newElement)
+    $(selector).after(newElement);
+    var conditionRow = $('.form-row:not(:last)');
+    conditionRow.find('.btn.add-form-row')
+    .removeClass('btn-success').addClass('btn-danger')
+    .removeClass('add-form-row').addClass('remove-form-row')
+    .html('<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>');
+    return false;
+}
+
+$(document).on('click', '.add-form-row', function(e){
+    e.preventDefault();
+    cloneMore('.form-item:last', 'form');
+    return false;
+});
 {% endblock %}

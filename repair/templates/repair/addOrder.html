@@ -5,12 +5,9 @@
 
 {% block content %}
 {# action="{% url 'pages:AddO' %}" #}
-    {% if go_to_item == 1 %}
-    <form class="form-horizontal m-x-lg m-y-md" , action="{% url 'repair:AddC' %}" method="POST" >
-    {% elif go_to_item == 0%}
-     <form class="form-horizontal m-x-lg m-y-md" method="POST" >
 
-     {% endif %}
+    <form class="form-horizontal m-x-lg m-y-md"   method="POST" >
+
         {% csrf_token %}
         <h2 class="fw-b h1 ta-r m-t-lg m-b-lg m-r-lg">طلب جديد </h2>
 {#        {% debug %}#}

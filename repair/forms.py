@@ -91,6 +91,8 @@ class Repair_item_From(forms.Form):
 
     type3 =forms.CharField(required=True,label="النوع",widget=forms.Select(choices=type3_option))
 
+    option = forms.CharField(required=True,widget=forms.Select(choices=repair_option))
+
     price =forms.DecimalField(required=True,validators=[numeric],label="السعر",decimal_places=2,widget=forms.TextInput(attrs={
                                 'class': 'form-control ta-r',
                                 'placeholder': '0',
@@ -99,7 +101,7 @@ class Repair_item_From(forms.Form):
     class Meta:
         model = Repair_item
 
-        fields=['type1','type2','type3','price','summary',]
+        fields=['type1','type2','type3','option','price','summary',]
 
 
-repair_form_set = formset_factory(Repair_item_From, extra=1)
+repair_form_set = formset_factory(Repair_item_From, extra=0)

@@ -25,7 +25,7 @@ SECRET_KEY = secret()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -132,5 +132,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 #AUTH_USER_MODEL='profiles.EmpUser'
 AUTH_USER_MODEL = "profiles.EmpUser"
 
+LOGIN_URL='login'
 LOGIN_REDIRECT_URL='/repair'
 LOGOUT_REDIRECT_URL='login'
