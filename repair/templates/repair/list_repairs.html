@@ -4,8 +4,7 @@
 {% block title %}جميع الإصلاحات{% endblock %}
 
 {% block content %}
-{#    <form class="form-signin" method="GET" action="{% url 'pages:AddO' %}">#}
-{#        {% csrf_token %}#}
+
         <a href="{% url 'repair:listrepairs' %}"><h2 class="fw-b h1 ta-r m-t-lg m-b-lg m-r-lg">اﻹصلاحات </h2></a>
         <form dir="rtl" method="get" class="m-l-lg m-r-lg ta-r">
             <label> العميل</label>
@@ -58,11 +57,12 @@
                                     </th>
                                 </tr>
                             </thead>
+                            <button class="btn btn-app btn-block" data-toggle="modal" data-target="#modal-large" type="button">Launch Modal</button>
                             <tbody>
                                 {% for order in filter.qs %}
                                     <tr>
                                         <td><code>  </code></td>
-                                        <td>{{ order.customer_id.name }}</td>
+                                        <td><a data-toggle="modal" data-target="#modal-large{{order.pk}}">{{ order.customer_id.name }}</a></td>
                                         <td>{{ order.total_price }}</td>
                                         <td>{{ order.payed }}</td>
                                         <td>
@@ -98,7 +98,34 @@
                 </div>
             </div>
         </div>
-{#    </form>#}
+
+    <!-- Large Modal -->
+    {% for order in filter.qs %}
+        <div class="modal fade" id="modal-large{{ order.pk }}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="card-header bg-green bg-inverse">
+                        <h4 class="ta-r"> اوردر رقم {{ order.pk }}</h4>
+                        <ul class="card-actions">
+                            <li>
+                                <button data-dismiss="modal" type="button"><i class="ion-close"></i></button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-block">
+                        <p>
+                            THIS IS ORDER NO. {{ order.pk }} for customer : {{ order.customer_id.name}}
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
+                        <button class="btn btn-sm btn-app" type="button" data-dismiss="modal"><i class="ion-checkmark"></i> Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <!-- End Large Modal -->
 {% endblock %}
 
 
