@@ -1,14 +1,16 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect, reverse
 from .filters import *
-from customer.forms import CustomerForm,CustomerForm2
+from customer.forms import CustomerForm, CustomerForm2
 from customer.models import Customer
 from repair.forms import *
 from django.contrib.auth.decorators import login_required
 # Create your views here.
+from urllib.parse import urlencode
 
 
 @login_required
 def add_order_view(request):
+    #if method is post (
     if request.method == 'POST':
         form = CustomerForm2(request.POST)
         context={}
@@ -17,17 +19,17 @@ def add_order_view(request):
             #print(phone)
             cu = Customer.objects.filter(phone=phone).values('name')
             # print(cu[0]['name'])
-            if(cu):
+            if cu:
                 name = cu[0]['name']
                 form = CustomerForm(initial={'name':name,'phone':phone})
                 context ={'form':form}
                 return redirect('addItem/'+'?'+'phone='+phone)
             else:
-                return redirect('add/',request)
+                return redirect('add/', request)
 
     else:
         form = CustomerForm()
-        context = {'go_to_item':0,'form':form}
+        context = {'go_to_item': 0, 'form': form}
     return render(request, 'repair/addOrder.html', context)
 
 
@@ -38,7 +40,10 @@ def add_customer_view(request):
         new_customer = Customer(name=request.POST['name'], phone=request.POST['phone'])
         new_customer.save()
         context = {'form': form}
-        return redirect('addItem/'+'?'+'phone='+phone)
+        base_url = reverse('repair:AddI')  # 1 /addItem/
+        query_string = urlencode({'phone': request.POST['phone']})  # 2 phone=011
+        url = '{}?{}'.format(base_url, query_string)  # concatenate to this form  /addItem/?phone=011
+        return redirect(url)
     else:
         context = {'form': form}
     return render(request, 'repair/addCustomer.html', context)
@@ -47,18 +52,20 @@ def add_customer_view(request):
 @login_required
 def add_items(request):
     context={}
+# coming from order page attached with PHONE
     if 'phone' in request.GET:
         phone = request.GET["phone"]
         cu = Customer.objects.filter(phone=phone).values('name')
-        if(cu):
+# coming from order page attached with PHONE with valid phone attached to a customer
+        if cu:
             name = cu[0]['name']
             form = CustomerForm(initial={'name': name, 'phone': phone})
             context = {'form': form}
             if request.method == 'GET':
                 formset = repair_form_set(initial=[{'type1':'-','type2':'-','type3':'-','option':'-','price':0,'summary':''}])
                 context['formset'] = formset
-                return render(request,'repair/AddItem.html',context)
-            elif request.method=='POST':
+                return render(request, 'repair/AddItem.html', context)
+            elif request.method == 'POST':
                 formset = repair_form_set()
                 context['formset'] = formset
             if formset.is_valid():
@@ -73,10 +80,11 @@ def add_items(request):
                 return redirect('repair/list_repairs.html')
         else:
             if request.method == 'GET':
-                formset = repair_form_set(initial=[{'type1':'-','type2':'-','type3':'-','option':'-','price':0,'summary':''}])
+                formset = repair_form_set(initial=[{'type1': '-', 'type2': '-', 'type3': '-', 'option': '-', 'price': 0,
+                                                    'summary': ''}])
                 context['formset'] = formset
-                return render(request,'repair/AddItem.html',context)
-            elif request.method=='POST':
+                return render(request, 'repair/AddItem.html', context)
+            elif request.method == 'POST':
                 formset = repair_form_set()
                 context['formset'] = formset
             if formset.is_valid():
@@ -87,8 +95,9 @@ def add_items(request):
                     option = form.cleaned_data.get('option')
                     summary = form.cleaned_data('summary')
                     price = form.cleaned_data('price')
-                return redirect('repair/list_repairs.html')
-    return render(request,'repair/AddItem.html',context)
+                url = reverse('repair:listrepairs')
+                return redirect(url)
+    return render(request, 'repair/AddI4tem.html', context)
 
 
 @login_required
