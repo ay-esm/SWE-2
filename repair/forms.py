@@ -3,6 +3,22 @@ from django import forms
 from .models import *
 from django.core.validators import RegexValidator
 from django.forms import formset_factory
+from django.forms import SelectDateWidget
+
+
+class Repair_order_From(forms.Form):
+
+    estimate_data = forms.DateField(widget=SelectDateWidget(),required=True, label='تاريخ التسليم')
+
+    class Meta:
+        model = Repair_order
+        fields = ['estimate_data']
+        widgets = {}
+
+# forms.DateInput(format='%Y/%m/%d', attrs={'class': 'js-datepicker form-control',
+#                                                               'id': 'example-datepicker1',
+#                                                               'data-date-format': 'yy/mm/dd',
+#                                                               'placeholder': 'تاريخ التسليم'})
 class Repair_item_From(forms.Form):
     type1_option = [
         ('-', '-'),
@@ -11,7 +27,7 @@ class Repair_item_From(forms.Form):
         ('اسورة عجلة', 'اسورة عجلة'),
         (' اسورة مفرودة', 'اسورة مفرودة'),
         ('بورتكلية','بورتكلية'),
-        ('تعليقة','تعليقةر'),
+        ('تعليقة','تعليقة'),
         ('توينز','توينز'),
         ('حرف','حرف'),
         ('حلق','حلق'),
@@ -83,8 +99,6 @@ class Repair_item_From(forms.Form):
         ('اخري','اخري'),
     ]
 
-    numeric = RegexValidator(r'^[1-9]*$', 'Only numeric characters are allowed.')
-
     type1 =forms.CharField(required=True, label="البيان", widget=forms.Select(choices=type1_option))
 
     type2 =forms.CharField(required=True, label="الصنف", widget=forms.Select(choices=type2_option))
@@ -93,12 +107,12 @@ class Repair_item_From(forms.Form):
 
     option = forms.CharField(required=True, widget=forms.Select(choices=repair_option), label='المطلوب')
 
-    price =forms.DecimalField(required=True, validators=[numeric], label="السعر", decimal_places=2,
-                              widget=forms.TextInput(attrs={
+    price =forms.DecimalField(required=True, label="السعر", decimal_places=2,
+                              widget=forms.NumberInput(attrs={
                                 'class': 'form-control ta-r',
                                 'placeholder': '0',
                             }))
-    summary = forms.CharField(widget=forms.Textarea,label='الملاحظات')
+    summary = forms.CharField(required=True, widget=forms.Textarea,label='الملاحظات')
 
     class Meta:
         model = Repair_item
@@ -106,4 +120,5 @@ class Repair_item_From(forms.Form):
         fields = ['type1', 'type2', 'type3', 'option', 'price', 'summary']
 
 
-repair_form_set = formset_factory(Repair_item_From, extra=0)
+repair_form_set = formset_factory(Repair_item_From, extra=0, can_delete=True)
+
