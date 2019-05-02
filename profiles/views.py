@@ -3,9 +3,11 @@ from django.shortcuts import render,redirect ,get_object_or_404
 from django.contrib import messages
 from .forms import UserForm,UserUpdateForm
 from .models import EmpUser
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
-
+@login_required
 def register_view(request):
     role=str(request.user.role)
     if  role != "Admin":
@@ -30,7 +32,7 @@ def login_view(request):
 def error_access_view(request):
     return render(request, 'accesserror.html', {})
 
-
+@login_required
 def list_all_accounts_view(request):
     role = str(request.user.role)
     if role != "Admin":
@@ -44,6 +46,8 @@ def list_all_accounts_view(request):
 
         return render(request, 'profileforms/list_accounts.html', context)
 
+
+@login_required
 def profile_view(request,username):
     role = str(request.user.role)
     if role != "Admin":
@@ -57,6 +61,8 @@ def profile_view(request,username):
 
         return render(request, 'profileforms/profile.html', context)
 
+
+@login_required
 def edit_profile_view(request,username):
     role = str(request.user.role)
     if role != "Admin":
@@ -87,6 +93,7 @@ def edit_profile_view(request,username):
 #
 #     return render(request, 'profileforms/delete_account.html',context)
 
+@login_required
 def delete_account_view(request, username):
     role = str(request.user.role)
     if role != "Admin":

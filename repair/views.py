@@ -72,7 +72,7 @@ def add_items(request):
             Dataform = Repair_order_From()
             context['date'] = Dataform
             if request.method == 'GET':
-                print(context)
+                # print(context)
                     # On first render print the formsets
 
                 formset = repair_form_set(initial=[{'type1': '-', 'type2': '-', 'type3': '-', 'option': '-', 'price': 0,
@@ -91,7 +91,7 @@ def add_items(request):
                 if formset.is_valid():
                     #print("HI")
                     for form in formset:
-                        print("valid")
+                        # print("valid")
                         if form.is_valid():
                             # if form.cleaned_data.get('type1') and form.cleaned_data.get('type2') and form.cleaned_data.get('type3')  and form.cleaned_data.get('option') and form.cleaned_data('summary') and form.cleaned_data('price'):
                             type1 = form.cleaned_data.get('type1')
@@ -143,7 +143,8 @@ def add_items(request):
 def list_repairs(request):
     order_list = Repair_order.objects.all()
     order_filter = repair_filter(request.GET, queryset=order_list)
-    context={'filter':order_filter}
+    context = {'filter': order_filter}
+
     return render(request, 'repair/list_repairs.html', context)
 
 
