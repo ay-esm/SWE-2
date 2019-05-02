@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% if messages %}
+
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} ta-r">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+<h2 class="fw-b h1 ta-r m-t-lg m-b-lg m-r-lg">تسجيل موظف </h2>
+
+<div style="text-align:right; float:right; margin:30px; width:30%">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            {{form|crispy}}
+        </div>
+
+        <!--{%for field in form%}-->
+            <!--<div class="form-group">-->
+                <!--<div class="col-xs-12 ta-r">-->
+                        <!--<label class="ta-r">{{field.label}}</label>-->
+                        <!--{{ field }}-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--{%endfor%}-->
+
+        <!--{%for field in p_form%}-->
+            <!--<div class="form-group">-->
+                <!--<div class="col-xs-12 ta-r">-->
+                        <!--<label class="ta-r">{{field.label}}</label>-->
+                        <!--{{ field }}-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--{%endfor%}-->
+
+        <div class="form-group m-b-0">
+        <div class="col-md-12">
+            <button class="btn btn-app" type="submit">تسجيل</button>
+        </div>
+    </div>
+    </form>
+</div>
+{% endblock %}
