@@ -4,11 +4,11 @@ from django.utils import timezone
 # Create your models here.
 
 class Repair_order(models.Model):
-    payed=models.DecimalField(decimal_places=2,max_digits=1000)
-    reminder=models.DecimalField(decimal_places=2,max_digits=1000)
-    total_price=models.DecimalField(decimal_places=2,max_digits=1000)
+    payed=models.DecimalField(decimal_places=2, max_digits=1000, default=0)
+    reminder=models.DecimalField(decimal_places=2, max_digits=1000, default=0)
+    total_price=models.DecimalField(decimal_places=2, max_digits=1000, default=0)
     current_date=models.DateField(default=timezone.now)
-    estimate_date=models.DateField()
+    estimate_date=models.DateField(default=timezone.now)
     customer_id = models.ForeignKey('customer.Customer',on_delete=models.CASCADE,default=1)
     state_to_office = models.BooleanField(default=False)
     state_to_store = models.BooleanField(default=False)
@@ -23,6 +23,7 @@ class Repair_item(models.Model):
     summary = models.TextField(null=True)
     repair_order_id = models.ForeignKey('Repair_order', on_delete=models.CASCADE,default=1, related_name='items')
     state_finish= models.BooleanField(default=False)
+
 
 class Repair_option(models.Model):
     option_name = models.CharField(max_length=50)

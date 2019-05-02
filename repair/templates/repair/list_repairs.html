@@ -5,8 +5,8 @@
 
 {% block content %}
 
-        <a href="{% url 'repair:listrepairs' %}"><h2 class="fw-b h1 ta-r m-t-lg m-b-lg m-r-lg">اﻹصلاحات </h2></a>
-        <form dir="rtl" method="get" class="m-l-lg m-r-lg ta-r">
+        <a href="{% url 'repair:listrepairs' %}"><h2 class="fw-b h1 ta-r m-t-lg m-b-lg m-r-lg hidden-print">اﻹصلاحات </h2></a>
+        <form dir="rtl" method="get" class="m-l-lg m-r-lg ta-r hidden-print">
             <label> العميل</label>
             {{ filter.form.customer_id }}
             <br>
@@ -23,9 +23,9 @@
             <label>حالة التسليم للعميل : </label>
             {{ filter.form.state_to_customer }}
             <br>
-            <button class="btn btn-app m-t-lg" type="submit">Search</button>
+            <button class="btn btn-app m-t-lg" type="submit">بحث</button>
         </form>
-        <div class="row text-center">
+        <div class="row text-center hidden-print">
             <div class="card m-t-lg">
 
                 <div class="card-block">
@@ -57,7 +57,6 @@
                                     </th>
                                 </tr>
                             </thead>
-                            <button class="btn btn-app btn-block" data-toggle="modal" data-target="#modal-large" type="button">Launch Modal</button>
                             <tbody>
                                 {% for order in filter.qs %}
                                     <tr>
@@ -105,25 +104,96 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="card-header bg-green bg-inverse">
-                        <h4 class="ta-r"> اوردر رقم {{ order.pk }}</h4>
+                        <h4 class="ta-r hidden-print"> اوردر رقم {{ order.pk }}</h4>
+
                         <ul class="card-actions">
                             <li>
-                                <button data-dismiss="modal" type="button"><i class="ion-close"></i></button>
+                                <button data-dismiss="modal" type="button" class="hidden-print"><i class="ion-close "></i></button>
                             </li>
                         </ul>
                     </div>
                     <div class="card-block">
-                        <p>
-                            THIS IS ORDER NO. {{ order.pk }} for customer : {{ order.customer_id.name}}
-                        </p>
+
+                                                    <div class="card-header">
+                                <h4>ORDER NO. #{{ order.pk }}<br> {{ order.current_date }}</h4>
+                                <ul class="card-actions">
+                                    <li>
+                                        <!-- Print Page functionality is initialized in App() -> uiHelperPrint() -->
+                                        <button type="button" class="hidden-print" onclick="App.initHelper( 'print-page' );"><i class="ion-printer m-r-xs"></i> Print Invoice</button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card-block">
+                                <!-- Invoice Info -->
+                                <div class="h1 text-uppercase text-center m-t m-b-md hidden-print">Invoice</div>
+                                <hr class="hidden-print">
+                                <div class="row">
+                                    <!-- Company Info -->
+                                    <div class="col-xs-6 col-sm-4 col-lg-3">
+
+                                    </div>
+                                    <!-- End Company Info -->
+                                    <!-- Client Info -->
+                                    <div class="col-xs-6 col-sm-4 col-sm-offset-4 col-lg-3 col-lg-offset-6 text-right">
+                                        <p class="h3">:بيانات العميل</p>
+                                        <address>
+						{{ order.customer_id.name}}<br>
+						{{ order.customer_id.phone }}  <i class="ion-ios-telephone-outline"></i>
+					</address>
+                                    </div>
+                                    <!-- End Client Info -->
+                                </div>
+                                <!-- End Invoice Info -->
+
+                                <!-- Table -->
+                                <div class="table-responsive m-y-lg">
+                                    <table dir="rtl" class="table table-bordered table-hover">
+                                        <thead>
+
+                                            <tr>
+                                                <th class="text-center" style="width: 50px;"></th>
+                                                <th class="text-center">القطع</th>
+                                                <th class="text-center" style="width: 150px;">ملاحظات</th>
+                                                <th class="text-right w-10"></th>
+                                                <th class="text-center w-30">السعر</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for item in order.items.all %}
+                                            <tr>
+                                                <td class="text-center">{{ forloop.counter }}</td>
+                                                <td>
+                                                    <p class="font-500 m-b-0">{{ item.type1 }}  ،  {{ item.type2 }}</p>
+                                                    <p class="small text-muted">{{ item.type3 }}</p>
+                                                </td>
+                                                <td class="text-center">{{ item.summary }}</td>
+                                                <td class="text-right"></td>
+                                                <td class="text-right">{{ item.price }}ج. م. </td>
+                                            </tr>
+                                        {% endfor %}
+                                            <tr class="active">
+                                                <td colspan="4" class="font-500 text-uppercase text-right">الاجمالى</td>
+                                                <td class="font-500 text-right">{{ order.total_price }}ج. م. </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- End Table -->
+
+                                <!-- Footer -->
+                                <hr class="hidden-print">
+                                <p class="text-muted text-center"><small>Thank you very much for doing business with us. We will happy to work with you again!</small></p>
+                                <!-- End Footer -->
+                            </div>
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">Close</button>
-                        <button class="btn btn-sm btn-app" type="button" data-dismiss="modal"><i class="ion-checkmark"></i> Ok</button>
+                    </div>
+                    <div class="modal-footer hidden-print">
+                        <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">اغلاق</button>
+                        <button class="btn btn-sm btn-app" type="button" data-dismiss="modal"><i class="ion-checkmark"></i> تم</button>
                     </div>
                 </div>
             </div>
-        </div>
+
     {% endfor %}
     <!-- End Large Modal -->
 {% endblock %}

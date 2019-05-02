@@ -2,26 +2,32 @@
 
 {% block content %}
 <h2 class="fw-b h1 ta-r m-t-lg m-b-lg m-r-lg">الطلب</h2>
-<div class="card col-md-4 vcenter shadow-3 col-md-offset-5">
+
+<div class="card col-md-5 vcenter shadow-3 col-md-offset-4">
     <form class="form-horizontal m-x-lg m-y-md" method="GET">
 
         <div class="form-group">
             <div class="col-xs-15 ta-r">
-                {{ form.name   }}
+                {{ form.name.label }}
+                {{ form.name }}
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-xs-15 ta-r">
+                {{ form.phone.label }}
                 {{ form.phone }}
             </div>
         </div>
+
     </form>
 </div>
 <div >
+
     <form dir="rtl" class="form-horizontal m-x-lg m-y-md form-item" method="POST">
-        {{ form_item.management_form }}
+
         {% csrf_token %}
+        {{ formset.management_form }}
         {% for item in formset %}
          <div class="row form-row card col-md-8  shadow-3 col-md-offset-2">
             <h3 class="fw-b h3 ta-r m-t-lg m-b-lg m-r-lg">القطعة</h3>
@@ -87,18 +93,30 @@
 {% block js %}
 
 function cloneMore(selector, prefix) {
-    var newElement = $(selector).clone(true);
-    var total = $('#id_form-TOTAL_FORMS').text();
+{#    var newElement = $(selector).clone(true);#}
+{#    var total = $('#id_form-TOTAL_FORMS').text();#}
+{#    total++;#}
 {#    console.log(total);#}
+{#    newElement.find(':input').each(function() {#}
+{#        var name = $(this).attr('name').replace('-' + (total-1) + '-', '-' + total + '-');#}
+{#        var id = 'id_' + name;#}
+{#        $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');#}
+{#        })#}
+{#    total++;#}
+{#    total++;#}
+{#    $('#id_' + prefix + '-TOTAL_FORMS').text(total);#}
+{#    console.log(newElement)#}
+
+    var newElement = $(selector).clone(true);
+    var total = $('#id_' + prefix + '-TOTAL_FORMS').val();
     newElement.find(':input').each(function() {
-        console.log($(this).val());
         var name = $(this).attr('name').replace('-' + (total-1) + '-', '-' + total + '-');
         var id = 'id_' + name;
         $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
-        })
+    });
     total++;
-    $('#id_' + prefix + '-TOTAL_FORMS').text(total);
-    console.log(newElement)
+    $('#id_' + prefix + '-TOTAL_FORMS').val(total);
+
     $(selector).after(newElement);
     var conditionRow = $('.form-row:not(:last)');
     conditionRow.find('.btn.add-form-row')
