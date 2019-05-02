@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_filters %}
 <aside class="app-layout-drawer">
 
     <!-- Drawer scroll area -->
@@ -11,201 +12,164 @@
         <!-- Drawer navigation -->
         <nav class="drawer-main">
             <ul class="nav nav-drawer">
-
-                <li class="nav-item nav-drawer-header">Apps</li>
-
                 <li class="nav-item active">
                     <a href="index.html"><i class="ion-ios-speedometer-outline"></i> Dashboard</a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="frontend_home.html"><i class="ion-ios-monitor-outline"></i> Frontend</a>
+                    <a href="frontend_home.html"><i class="ion-ios-monitor-outline"></i>Comp</a>
                 </li>
 
                 <li class="nav-item nav-drawer-header">Components</li>
 
+
+                <!--///////////// Admin //////////////////-->
+                {% if request.user|has_group:"Admin" %}
+
                 <li class="nav-item nav-item-has-subnav">
-                    <a href="javascript:void(0)"><i class="ion-ios-calculator-outline"></i> UI Elements</a>
+                    <!----- Tasle7 ----->
+                    <a href="javascript:void(0)" style="font-size: 18px;"><i class="fa fa-cogs" ></i>تصليح</a>
                     <ul class="nav nav-subnav">
 
                         <li>
-                            <a href="base_ui_buttons.html">Buttons</a>
+                            <a href="/repair/add/">اضافة عميل</a>
                         </li>
 
                         <li>
-                            <a href="base_ui_cards.html">Cards</a>
+                            <a href="/repair/">طلب جديد</a>
                         </li>
 
                         <li>
-                            <a href="base_ui_cards_api.html">Cards API</a>
+                            <a href="/repair/list">فرز الطلبات</a>
+                        </li>
+
+                    </ul>
+
+                </li>
+
+                <li class="nav-item nav-item-has-subnav">
+                    <!----- bay3 ----->
+                    <a href="javascript:void(0)" style="font-size: 18px;"><i class="fa fa-money" ></i>بيع</a>
+                    <ul class="nav nav-subnav">
+
+                        <li>
+                            <a href="#">اضافة عميل</a>
                         </li>
 
                         <li>
-                            <a href="base_ui_layout.html">Layout</a>
+                            <a href="#">طلب جديد</a>
                         </li>
 
                         <li>
-                            <a href="base_ui_grid.html">Grid</a>
-                        </li>
-
-                        <li>
-                            <a href="base_ui_icons.html">Icons</a>
-                        </li>
-
-                        <li>
-                            <a href="base_ui_modals_tooltips.html">Modals / Tooltips</a>
-                        </li>
-
-                        <li>
-                            <a href="base_ui_alerts_notify.html">Alerts / Notify</a>
-                        </li>
-
-                        <li>
-                            <a href="base_ui_pagination.html">Pagination</a>
-                        </li>
-
-                        <li>
-                            <a href="base_ui_progress.html">Progress</a>
-                        </li>
-
-                        <li>
-                            <a href="base_ui_tabs.html">Tabs</a>
-                        </li>
-
-                        <li>
-                            <a href="base_ui_typography.html">Typography</a>
-                        </li>
-
-                        <li>
-                            <a href="base_ui_widgets.html">Widgets</a>
+                            <a href="#">فرز الطلبات</a>
                         </li>
 
                     </ul>
                 </li>
 
                 <li class="nav-item nav-item-has-subnav">
-                    <a href="javascript:void(0)"><i class="ion-ios-compose-outline"></i> Forms</a>
+                    <!----- mowazafen ----->
+                    <a href="javascript:void(0)" style="font-size: 18px;"><i class="fa fa-user" ></i>موظفين</a>
                     <ul class="nav nav-subnav">
 
                         <li>
-                            <a href="base_forms_elements.html">Elements</a>
+                            <a href="/register/">موظف جديد</a>
                         </li>
 
                         <li>
-                            <a href="base_forms_samples.html">Samples</a>
-                        </li>
-
-                        <li>
-                            <a href="base_forms_pickers_select.html">Pickers &amp; Select</a>
-                        </li>
-
-                        <li>
-                            <a href="base_forms_validation.html">Validation</a>
-                        </li>
-
-                        <li>
-                            <a href="base_forms_wizard.html">Wizard</a>
+                            <a href="#">قائمة الموظفين</a>
                         </li>
 
                     </ul>
                 </li>
 
                 <li class="nav-item nav-item-has-subnav">
-                    <a href="javascript:void(0)"><i class="ion-ios-list-outline"></i> Tables</a>
+                    <a href="javascript:void(0)" style="font-size: 18px;"><i class="fa fa-bar-chart"></i> تقارير</a>
+
+                </li>
+
+                <!-- //////// Customer Service //////// -->
+                {% elif request.user|has_group:"Customer Service" %}
+
+                <li class="nav-item nav-item-has-subnav">
+                    <!----- Tasle7 ----->
+                    <a href="javascript:void(0)" style="font-size: 18px;"><i class="fa fa-cogs" ></i>تصليح</a>
                     <ul class="nav nav-subnav">
 
                         <li>
-                            <a href="base_tables_styles.html">Styles</a>
+                            <a href="/repair/add">اضافة عميل</a>
                         </li>
 
                         <li>
-                            <a href="base_tables_responsive.html">Responsive</a>
+                            <a href="/repair/">طلب جديد</a>
                         </li>
 
                         <li>
-                            <a href="base_tables_tools.html">Tools</a>
-                        </li>
-
-                        <li>
-                            <a href="base_tables_pricing.html">Pricing</a>
-                        </li>
-
-                        <li>
-                            <a href="base_tables_datatables.html">Wizard</a>
+                            <a href="/repair/list/">فرز الطلبات</a>
                         </li>
 
                     </ul>
+
                 </li>
 
                 <li class="nav-item nav-item-has-subnav">
-                    <a href="javascript:void(0)"><i class="ion-ios-browsers-outline"></i> Pages</a>
+                    <!----- bay3 ----->
+                    <a href="javascript:void(0)" style="font-size: 18px;"><i class="fa fa-money" ></i>بيع</a>
                     <ul class="nav nav-subnav">
 
                         <li>
-                            <a href="base_pages_blank.html">Blank</a>
+                            <a href="#">اضافة عميل</a>
                         </li>
 
                         <li>
-                            <a href="base_pages_inbox.html">Inbox</a>
+                            <a href="#">طلب جديد</a>
                         </li>
 
                         <li>
-                            <a href="base_pages_invoice.html">Invoice</a>
-                        </li>
-
-                        <li>
-                            <a href="base_pages_profile.html">Profile</a>
-                        </li>
-
-                        <li>
-                            <a href="base_pages_search.html">Search</a>
+                            <a href="#">فرز الطلبات</a>
                         </li>
 
                     </ul>
+                </li>
+
+
+                <!-- /////////// office ////////////-->
+                {% else %}
+
+                <li class="nav-item nav-item-has-subnav">
+                    <!----- Tasle7 ----->
+                    <a href="javascript:void(0)" style="font-size: 18px;"><i class="fa fa-cogs" ></i>تصليح</a>
+                    <ul class="nav nav-subnav">
+
+                        <li>
+                            <a href="/repair/list/">فرز الطلبات</a>
+                        </li>
+
+                    </ul>
+
                 </li>
 
                 <li class="nav-item nav-item-has-subnav">
-                    <a href="javascript:void(0)"><i class="ion-social-javascript-outline"></i> JS plugins</a>
+                    <!----- bay3 ----->
+                    <a href="javascript:void(0)" style="font-size: 18px;"><i class="fa fa-money" ></i>بيع</a>
                     <ul class="nav nav-subnav">
 
                         <li>
-                            <a href="base_js_maps.html">Maps</a>
-                        </li>
-
-                        <li>
-                            <a href="base_js_sliders.html">Sliders</a>
-                        </li>
-
-                        <li>
-                            <a href="base_js_charts_flot.html">Charts - Flot</a>
-                        </li>
-
-                        <li>
-                            <a href="base_js_charts_chartjs.html">Charts - Chart.js</a>
-                        </li>
-
-                        <li>
-                            <a href="base_js_charts_sparkline.html">Charts - Sparkline</a>
-                        </li>
-
-                        <li>
-                            <a href="base_js_draggable.html">Draggable</a>
-                        </li>
-
-                        <li>
-                            <a href="base_js_syntax_highlight.html">Syntax highlight</a>
+                            <a href="#">فرز الطلبات</a>
                         </li>
 
                     </ul>
                 </li>
+
+
+                {% endif %}
 
             </ul>
         </nav>
         <!-- End drawer navigation -->
 
         <div class="drawer-footer">
-            <p class="copyright">AppUI Template &copy;</p>
-            <a href="https://shapebootstrap.net/item/1525731-appui-admin-frontend-template/?ref=rustheme" target="_blank" rel="nofollow">Purchase a license</a>
+            <p class="copyright">A4O &copy;</p>
         </div>
     </div>
     <!-- End drawer scroll area -->

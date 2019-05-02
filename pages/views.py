@@ -11,6 +11,10 @@ def homeView(request):
         context={}
 
         return render(request,'base.html',context)
+
+def error_view(request):
+    return render(request, 'accesserror.html', {})
+
 # def add_order_view(request):
 #     if request.method == 'POST':
 #         form = CustomerForm(request.POST)

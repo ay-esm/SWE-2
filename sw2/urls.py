@@ -17,14 +17,22 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path,include
-from profiles.views import register_view
+from profiles.views import register_view,list_all_accounts_view,profile_view,edit_profile_view,delete_account_view
 from repair.views import *
+from pages.views import error_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', register_view),
     path('home/',include('pages.urls')),
     path('repair/',include('repair.urls')),
     path('register/', register_view, name="register"),
+    path('error/', error_view, name="error-access"),
+    path('repair/additem1', add_items),
     path('login/', auth_views.LoginView.as_view(template_name='profileforms/login.html'), name="login"),
     path('logout/', auth_views.LogoutView.as_view(), name="logout"),
+    path('listacc/', list_all_accounts_view, name="listacc"),
+    path('profile/<str:username>/', profile_view, name="profile"),
+    path('profile/<str:username>/edit', edit_profile_view, name="editprofile"),
+    path('profile/<str:username>/delete', delete_account_view, name="deleteprofile"),
+
 ]
