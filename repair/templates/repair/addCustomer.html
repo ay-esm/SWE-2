@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="fw-b h1 ta-r m-t-lg m-b-lg m-r-lg">عميل جديد </h2>
+{#        {% debug %}#}
+<div class="card col-md-4 vcenter shadow-3 col-md-offset-5">
+
+    <form class="form-horizontal m-x-lg m-y-md"  method="POST">
+
+    {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                <div class="form-material floating">
+                        <label class="ta-r">{{field.label}}</label>
+                        <br>
+                        {{ field }}
+                </div>
+            </div>
+        {% endfor %}
+
+    <div class="form-group m-b-0">
+        <div class="col-xs-12">
+            <button class="btn btn-app" type="submit">تسجيل</button>
+        </div>
+    </div>
+    </form>
+</div>
+{% endblock %}

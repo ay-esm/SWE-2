@@ -1,0 +1,176 @@
+{% load static %}
+{% load custom_filters %}
+<aside class="app-layout-drawer">
+
+    <!-- Drawer scroll area -->
+    <div class="app-layout-drawer-scroll">
+        <!-- Drawer logo -->
+        <div id="logo" class="drawer-header">
+            <a href="index.html"><img class="img-responsive" src="{% static 'img/logo/logo-backend.png' %}" title="AppUI" alt="AppUI" /></a>
+        </div>
+
+        <!-- Drawer navigation -->
+        <nav class="drawer-main">
+            <ul class="nav nav-drawer">
+                <li class="nav-item active">
+                    <a href="index.html"><i class="ion-ios-speedometer-outline"></i> Dashboard</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="frontend_home.html"><i class="ion-ios-monitor-outline"></i>Comp</a>
+                </li>
+
+                <li class="nav-item nav-drawer-header">Components</li>
+
+
+                <!--///////////// Admin //////////////////-->
+                {% if request.user|has_group:"Admin" %}
+
+                <li class="nav-item nav-item-has-subnav">
+                    <!----- Tasle7 ----->
+                    <a href="javascript:void(0)" style="font-size: 18px;"><i class="fa fa-cogs" ></i>تصليح</a>
+                    <ul class="nav nav-subnav">
+
+                        <li>
+                            <a href="/repair/add/">اضافة عميل</a>
+                        </li>
+
+                        <li>
+                            <a href="/repair/">طلب جديد</a>
+                        </li>
+
+                        <li>
+                            <a href="/repair/list">فرز الطلبات</a>
+                        </li>
+
+                    </ul>
+
+                </li>
+
+                <li class="nav-item nav-item-has-subnav">
+                    <!----- bay3 ----->
+                    <a href="javascript:void(0)" style="font-size: 18px;"><i class="fa fa-money" ></i>بيع</a>
+                    <ul class="nav nav-subnav">
+
+                        <li>
+                            <a href="#">اضافة عميل</a>
+                        </li>
+
+                        <li>
+                            <a href="#">طلب جديد</a>
+                        </li>
+
+                        <li>
+                            <a href="#">فرز الطلبات</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class="nav-item nav-item-has-subnav">
+                    <!----- mowazafen ----->
+                    <a href="javascript:void(0)" style="font-size: 18px;"><i class="fa fa-user" ></i>موظفين</a>
+                    <ul class="nav nav-subnav">
+
+                        <li>
+                            <a href="/register/">موظف جديد</a>
+                        </li>
+
+                        <li>
+                            <a href="/listacc/">قائمة الموظفين</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class="nav-item nav-item-has-subnav">
+                    <a href="javascript:void(0)" style="font-size: 18px;"><i class="fa fa-bar-chart"></i> تقارير</a>
+
+                </li>
+
+                <!-- //////// Customer Service //////// -->
+                {% elif request.user|has_group:"Customer Service" %}
+
+                <li class="nav-item nav-item-has-subnav">
+                    <!----- Tasle7 ----->
+                    <a href="javascript:void(0)" style="font-size: 18px;"><i class="fa fa-cogs" ></i>تصليح</a>
+                    <ul class="nav nav-subnav">
+
+                        <li>
+                            <a href="/repair/add">اضافة عميل</a>
+                        </li>
+
+                        <li>
+                            <a href="/repair/">طلب جديد</a>
+                        </li>
+
+                        <li>
+                            <a href="/repair/list/">فرز الطلبات</a>
+                        </li>
+
+                    </ul>
+
+                </li>
+
+                <li class="nav-item nav-item-has-subnav">
+                    <!----- bay3 ----->
+                    <a href="javascript:void(0)" style="font-size: 18px;"><i class="fa fa-money" ></i>بيع</a>
+                    <ul class="nav nav-subnav">
+
+                        <li>
+                            <a href="#">اضافة عميل</a>
+                        </li>
+
+                        <li>
+                            <a href="#">طلب جديد</a>
+                        </li>
+
+                        <li>
+                            <a href="#">فرز الطلبات</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
+                <!-- /////////// office ////////////-->
+                {% else %}
+
+                <li class="nav-item nav-item-has-subnav">
+                    <!----- Tasle7 ----->
+                    <a href="javascript:void(0)" style="font-size: 18px;"><i class="fa fa-cogs" ></i>تصليح</a>
+                    <ul class="nav nav-subnav">
+
+                        <li>
+                            <a href="/repair/list/">فرز الطلبات</a>
+                        </li>
+
+                    </ul>
+
+                </li>
+
+                <li class="nav-item nav-item-has-subnav">
+                    <!----- bay3 ----->
+                    <a href="javascript:void(0)" style="font-size: 18px;"><i class="fa fa-money" ></i>بيع</a>
+                    <ul class="nav nav-subnav">
+
+                        <li>
+                            <a href="#">فرز الطلبات</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
+                {% endif %}
+
+            </ul>
+        </nav>
+        <!-- End drawer navigation -->
+
+        <div class="drawer-footer">
+            <p class="copyright">A4O &copy;</p>
+        </div>
+    </div>
+    <!-- End drawer scroll area -->
+</aside>

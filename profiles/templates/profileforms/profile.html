@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2 class="fw-b h1 ta-r m-t-lg m-r-lg">المستخدم</h2>
+<!--<hr>-->
+
+<div class="card ta-r m-r-lg m-l-lg">
+    <div class="card-block tab-content">
+
+        <table class="table" style="margin-left: 50%; width: 50%;">
+            <thead>
+                <th></th>
+                <th class="ta-r"><h3>البيانات</h3></th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="hidden-xs">{{ account.username }}</td>
+                    <td>اسم المستخدم</td>
+                </tr>
+                <tr>
+                    <td class="hidden-xs">{{ account.name  }}</td>
+                    <td>الاسم كامل</td>
+                </tr>
+                <tr>
+                    <td class="hidden-xs">{{ account.address }}</td>
+                    <td>العنوان</td>
+                </tr>
+                <tr>
+                    <td class="hidden-xs">{{ account.phone }}</td>
+                    <td>تيليفون</td>
+                </tr>
+                <tr>
+                    <td class="hidden-xs">{{ account.national_ID }}</td>
+                    <td>الرقم القومي</td>
+                </tr>
+                <tr>
+                    <td class="hidden-xs">{{ account.edu }}</td>
+                    <td>التعليم</td>
+                </tr>
+                <tr>
+                    <td class="hidden-xs">{{ account.role }}</td>
+                    <td>نوع المستخدم</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <button class="btn btn-app-red" style="margin-right:20px;" onclick="window.location.href = '/profile/{{ account.username }}/delete';">مسح</button>
+
+        <button class="btn btn-app" onclick="window.location.href = '/profile/{{ account.username }}/edit';">تعديل</button>
+        <!--<button class="btn btn-app btn-block" data-toggle="modal" data-target="#modal-normal" type="button">Launchd Modal</button>-->
+    </div>
+</div>
+
+
+
+{#<p>{{account.username}}</p>#}
+{#<p>{{account.name}}</p>#}
+
+
+{% endblock %}

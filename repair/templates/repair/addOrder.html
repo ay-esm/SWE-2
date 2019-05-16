@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Add Order{% endblock %}
+
+{% block content %}
+{# action="{% url 'pages:AddO' %}" #}
+
+    <form class="form-horizontal m-x-lg m-y-md"   method="POST" >
+
+        {% csrf_token %}
+        <h2 class="fw-b h1 ta-r m-t-lg m-b-lg m-r-lg">طلب جديد </h2>
+{#        {% debug %}#}
+        <div class="form-material floating">
+      <div class="form-group">
+        <div class="col-xs-12">
+            <div class="form-material floating" style="float:right;">
+                <label  style="display: block" for="cphone">رقم الموبايل</label><br>
+                {{ form.phone }}
+                <br>
+                 <button class="btn btn-app" type="submit",formmethod="post">بحث</button>
+{#                #}
+{#                TODO: Fix the floating label#}
+            </div>
+        </div>
+    </div>
+        </div>
+  </form>
+{% endblock %}
+
+
+
+{% block js %}
+
+$("#new").click(function () {
+    var str = "test";
+    console.log(str);
+    $.ajax({
+        url: '{% url 'repair:AddC' %}',
+        data: {},
+        success: function (data) {
+            $('#content').html(data);
+        }
+    });
+});
+
+{% endblock %}
